@@ -4,6 +4,7 @@ public record Car(
         String vin,
         String brand,
         String model,
-        int year
+        int year,
+        String color
 ) {
 }
