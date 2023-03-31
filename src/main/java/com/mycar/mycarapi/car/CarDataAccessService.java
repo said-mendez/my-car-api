@@ -35,7 +35,7 @@ public class CarDataAccessService implements CarDao {
                     car.color().toUpperCase()
             );
 
-            return car.vin();
+            return car.vin().toUpperCase();
         } catch(Exception e) {
             throw new MyCarBadRequestException("Oops something went wrong!");
         }
@@ -77,6 +77,26 @@ public class CarDataAccessService implements CarDao {
                     ;
         } catch (Exception e){
             throw new MyCarResourceNotFoundException("Car not found!");
+        }
+    }
+
+    @Override
+    public String createWithVIN(String id, Car car) throws MyCarBadRequestException {
+        String sql = CarQueries.INSERT;
+
+        try {
+            jdbcTemplate.update(
+                    sql,
+                    id.toUpperCase(),
+                    car.brand().toUpperCase(),
+                    car.model().toUpperCase(),
+                    car.year(),
+                    car.color().toUpperCase()
+            );
+
+            return id.toUpperCase();
+        } catch(Exception e) {
+            throw new MyCarBadRequestException("Oops something went wrong!");
         }
     }
 }

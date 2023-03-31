@@ -37,6 +37,13 @@ public class CarController {
         return new ResponseEntity<>(carResponse, HttpStatus.CREATED);
     }
 
+    @PostMapping("/{vin}")
+    public ResponseEntity<Car> createCarWithVIN(@PathVariable("vin") String vin, @RequestBody Car car) {
+        Car carResponse = carService.addCarWithVIN(vin, car);
+
+        return new ResponseEntity<>(carResponse, HttpStatus.CREATED);
+    }
+
     @PutMapping("/{vin}")
     public ResponseEntity<Map<String, Boolean>> updateCar(@PathVariable("vin") String vin, @RequestBody Car car) {
         carService.updateCar(vin, car);
@@ -46,7 +53,7 @@ public class CarController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @DeleteMapping("{vin}")
+    @DeleteMapping("/{vin}")
     public ResponseEntity<Map<String, Boolean>> deleteCar(@PathVariable("vin") String vin) {
         carService.deleteCar(vin);
         Map<String, Boolean> map = new HashMap<>();

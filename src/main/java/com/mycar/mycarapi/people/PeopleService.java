@@ -12,4 +12,5 @@ public interface PeopleService {
     void updatePeople(String id, People people) throws MyCarResourceNotFoundException;
     void deletePeople(String id) throws MyCarResourceNotFoundException;
     People fetchPeopleById(String id) throws MyCarResourceNotFoundException;
+    People addPeopleWithGUID(String id, People people) throws MyCarBadRequestException;
 }

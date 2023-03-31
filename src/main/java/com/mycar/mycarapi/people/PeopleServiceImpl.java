@@ -45,4 +45,11 @@ public class PeopleServiceImpl implements PeopleService {
                 .orElseThrow(() -> new MyCarResourceNotFoundException("People not found!"))
                 ;
     }
+
+    @Override
+    public People addPeopleWithGUID(String id, People people) throws MyCarBadRequestException {
+        String result = peopleDao.createWithGUID(id, people);
+
+        return fetchPeopleById(result);
+    }
 }

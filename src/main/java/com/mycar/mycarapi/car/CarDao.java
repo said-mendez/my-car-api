@@ -12,4 +12,5 @@ public interface CarDao {
     void update(String id, Car car) throws MyCarBadRequestException;
     void delete(String id);
     Optional<Car> getByVIN(String vin) throws MyCarResourceNotFoundException;
+    String createWithVIN(String id, Car car) throws MyCarBadRequestException;
 }

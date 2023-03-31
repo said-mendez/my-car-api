@@ -44,4 +44,11 @@ public class CarServiceImpl implements CarService {
         return carDao.getByVIN(id)
                 .orElseThrow(() -> new MyCarResourceNotFoundException("Car not found!"));
     }
+
+    @Override
+    public Car addCarWithVIN(String id, Car car) throws MyCarBadRequestException {
+        String vin =  carDao.createWithVIN(id, car);
+
+        return fetchCarById(vin);
+    }
 }

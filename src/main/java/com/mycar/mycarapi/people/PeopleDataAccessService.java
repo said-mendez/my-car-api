@@ -87,4 +87,24 @@ public class PeopleDataAccessService implements PeopleDao {
         }
 
     }
+
+    @Override
+    public String createWithGUID(String id, People people) throws MyCarBadRequestException {
+        String sql = PeopleQueries.INSERT;
+
+        try {
+            jdbcTemplate.update(
+                    sql,
+                    id,
+                    people.firstName(),
+                    people.lastName(),
+                    people.email().toLowerCase(),
+                    people.gender().toLowerCase()
+            );
+
+            return id;
+        } catch(Exception e) {
+            throw new MyCarBadRequestException("Invalid Request");
+        }
+    }
 }

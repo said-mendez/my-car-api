@@ -12,4 +12,5 @@ public interface PeopleDao {
     void update(String id, People people) throws MyCarBadRequestException;
     void delete(String id);
     Optional<People> getByGUID(String guid) throws MyCarResourceNotFoundException;
+    String createWithGUID(String id, People people) throws MyCarBadRequestException;
 }

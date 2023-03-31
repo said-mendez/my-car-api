@@ -1,5 +1,6 @@
 package com.mycar.mycarapi.people;
 
+import com.electronwill.nightconfig.core.conversion.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class PeopleController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @DeleteMapping("{guid}")
+    @DeleteMapping("/{guid}")
     public ResponseEntity<Map<String, Boolean>> deletePeople(@PathVariable("guid") String guid) {
         peopleService.deletePeople(guid);
 
@@ -55,5 +56,13 @@ public class PeopleController {
         map.put("success", true);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @PostMapping("/{guid}")
+    public ResponseEntity<People> addPeople(@PathVariable("guid") String guid, @RequestBody People people) {
+
+        People createdPeople = peopleService.addPeopleWithGUID(guid, people);
+
+        return new ResponseEntity<>(createdPeople, HttpStatus.CREATED);
     }
 }
