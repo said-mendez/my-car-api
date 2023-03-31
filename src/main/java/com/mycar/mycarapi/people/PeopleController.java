@@ -24,14 +24,16 @@ public class PeopleController {
     }
 
     @GetMapping("/{guid}")
-    public People getPeopleByGUID(@PathVariable("guid") String guid) {
-        return peopleService.fetchPeopleById(guid);
+    public ResponseEntity<People> getPeopleByGUID(@PathVariable("guid") String guid) {
+        People people = peopleService.fetchPeopleById(guid);
+
+        return new ResponseEntity<>(people, HttpStatus.OK);
     }
 
     @PostMapping("")
-    public ResponseEntity<Optional<People>> addPeople(@RequestBody People people) {
+    public ResponseEntity<People> addPeople(@RequestBody People people) {
 
-        Optional<People> createdPeople = peopleService.addPeople(people);
+        People createdPeople = peopleService.addPeople(people);
 
         return new ResponseEntity<>(createdPeople, HttpStatus.CREATED);
     }

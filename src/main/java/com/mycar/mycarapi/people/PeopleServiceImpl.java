@@ -21,14 +21,15 @@ public class PeopleServiceImpl implements PeopleService {
     }
 
     @Override
-    public Optional<People> addPeople(People people) throws MyCarBadRequestException {
+    public People addPeople(People people) throws MyCarBadRequestException {
         String result = peopleDao.create(people);
 
-        return peopleDao.getByGUID(result);
+        return fetchPeopleById(result);
     }
 
     @Override
-    public void updatePeople(String id, People people) throws MyCarBadRequestException {
+    public void updatePeople(String id, People people) throws MyCarResourceNotFoundException {
+        fetchPeopleById(id);
         peopleDao.update(id, people);
     }
 

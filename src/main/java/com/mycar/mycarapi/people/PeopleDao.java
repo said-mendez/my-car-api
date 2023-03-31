@@ -10,6 +10,6 @@ public interface PeopleDao {
     List<People> getAll();
     String create(People people) throws MyCarBadRequestException;
     void update(String id, People people) throws MyCarBadRequestException;
-    void delete(String id) throws MyCarResourceNotFoundException;
+    void delete(String id);
     Optional<People> getByGUID(String guid) throws MyCarResourceNotFoundException;
 }

@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface PeopleService {
     List<People> fetchAllPeople();
-    Optional<People> addPeople(People people) throws MyCarBadRequestException;
-    void updatePeople(String id, People people) throws MyCarBadRequestException;
+    People addPeople(People people) throws MyCarBadRequestException;
+    void updatePeople(String id, People people) throws MyCarResourceNotFoundException;
     void deletePeople(String id) throws MyCarResourceNotFoundException;
     People fetchPeopleById(String id) throws MyCarResourceNotFoundException;
 }
