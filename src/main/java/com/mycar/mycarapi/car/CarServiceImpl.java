@@ -21,22 +21,27 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Optional<Car> addCar(Car car) throws MyCarBadRequestException {
-        return Optional.empty();
+    public Car addCar(Car car) throws MyCarBadRequestException {
+        String vin = carDao.create(car);
+
+        return fetchCarById(vin);
     }
 
     @Override
-    public void updateCar(String id, Car car) throws MyCarBadRequestException {
-
+    public void updateCar(String id, Car car) throws MyCarResourceNotFoundException {
+        fetchCarById(id);
+        carDao.update(id, car);
     }
 
     @Override
     public void deleteCar(String id) throws MyCarResourceNotFoundException {
-
+        fetchCarById(id);
+        carDao.delete(id);
     }
 
     @Override
     public Car fetchCarById(String id) throws MyCarResourceNotFoundException {
-        return null;
+        return carDao.getByVIN(id)
+                .orElseThrow(() -> new MyCarResourceNotFoundException("Car not found!"));
     }
 }

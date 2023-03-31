@@ -21,8 +21,8 @@ public class CarQueries {
     public static final String UPDATE = """
             UPDATE car
             SET brand = ?,
-            model = ?
-            year = ?
+            model = ?,
+            year = ?,
             color = ?
             WHERE vin = ?
             ;

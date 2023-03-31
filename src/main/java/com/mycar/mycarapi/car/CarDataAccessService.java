@@ -2,6 +2,7 @@ package com.mycar.mycarapi.car;
 
 import com.mycar.mycarapi.exceptions.MyCarBadRequestException;
 import com.mycar.mycarapi.exceptions.MyCarResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -10,9 +11,8 @@ import java.util.Optional;
 
 @Repository
 public class CarDataAccessService implements CarDao {
-    private JdbcTemplate jdbcTemplate;
-
-    public CarDataAccessService(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Car> getAll() {
@@ -23,21 +23,60 @@ public class CarDataAccessService implements CarDao {
 
     @Override
     public String create(Car car) throws MyCarBadRequestException {
-        return null;
+        String sql = CarQueries.INSERT;
+
+        try {
+            jdbcTemplate.update(
+                    sql,
+                    car.vin().toUpperCase(),
+                    car.brand().toUpperCase(),
+                    car.model().toUpperCase(),
+                    car.year(),
+                    car.color().toUpperCase()
+            );
+
+            return car.vin();
+        } catch(Exception e) {
+            throw new MyCarBadRequestException("Oops something went wrong!");
+        }
     }
 
     @Override
     public void update(String id, Car car) throws MyCarBadRequestException {
+        String sql = CarQueries.UPDATE;
 
+        try {
+            jdbcTemplate.update(
+                    sql,
+                    car.brand(),
+                    car.model(),
+                    car.year(),
+                    car.color(),
+                    id
+            );
+        } catch (Exception e) {
+            throw new MyCarBadRequestException("Something went wrong! " +e);
+        }
     }
 
     @Override
-    public void delete(String id) throws MyCarResourceNotFoundException {
+    public void delete(String id) {
+        String sql = CarQueries.DELETE;
 
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
     public Optional<Car> getByVIN(String vin) throws MyCarResourceNotFoundException {
-        return Optional.empty();
+        String sql = CarQueries.GET_BY_VIN;
+
+        try {
+            return jdbcTemplate.query(sql, new CarRowMapper(), vin)
+                    .stream()
+                    .findFirst()
+                    ;
+        } catch (Exception e){
+            throw new MyCarResourceNotFoundException("Car not found!");
+        }
     }
 }
