@@ -48,21 +48,45 @@ public class PeopleDataAccessService implements PeopleDao {
     }
 
     @Override
-    public int update(int id, People people) throws MyCarBadRequestException {
-        return 0;
+    public void update(String id, People people) throws MyCarBadRequestException {
+        String sql = PeopleQueries.UPDATE;
+
+        try {
+            jdbcTemplate.update(
+                    sql,
+                    people.firstName(),
+                    people.lastName(),
+                    people.email().toLowerCase(),
+                    people.gender().toLowerCase(),
+                    id
+            );
+        } catch(Exception e) {
+            throw new MyCarBadRequestException("Oops something went wrong!");
+        }
     }
 
     @Override
-    public int delete(int id) throws MyCarResourceNotFoundException {
-        return 0;
+    public void delete(String id) {
+        String sql = PeopleQueries.DELETE;
+
+        jdbcTemplate.update(
+                sql,
+                id
+        );
     }
 
     @Override
     public Optional<People> getByGUID(String guid) throws MyCarResourceNotFoundException {
         String sql = PeopleQueries.GET_BY_GUID;
-        return jdbcTemplate.query(sql, new PeopleRowMapper(), guid)
-                .stream()
-                .findFirst()
-                ;
+
+        try {
+            return jdbcTemplate.query(sql, new PeopleRowMapper(), guid)
+                    .stream()
+                    .findFirst()
+                    ;
+        } catch(Exception e) {
+            throw new MyCarResourceNotFoundException("People not found!");
+        }
+
     }
 }

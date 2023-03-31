@@ -2,18 +2,34 @@ package com.mycar.mycarapi.people;
 
 class PeopleQueries {
     public static final String GET_ALL = """
-        SELECT guid, firstname, lastname, email, gender
-        FROM people;
-    """;
+            SELECT guid, firstname, lastname, email, gender
+            FROM people
+            ;
+            """;
     public static final String GET_BY_GUID = """
             SELECT guid, firstname, lastname, email, gender
             FROM people
             WHERE guid = ?
+            ;
             """;
     public static final String INSERT = """
             INSERT INTO people(guid, firstname, lastname, email, gender)
-            VALUES(?, ?, ?, ?, ?);
+            VALUES(?, ?, ?, ?, ?)
+            ;
             """;
-    public static final String UPDATE = "";
-    public static final String DELETE = "";
+    public static final String UPDATE = """
+            UPDATE people
+            SET firstname = ?,
+            lastname = ?,
+            email = ?,
+            gender = ?
+            WHERE guid = ?
+            ;
+            """;
+    public static final String DELETE = """
+            DELETE
+            FROM people
+            WHERE guid = ?
+            ;
+            """;
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PeopleDao {
     List<People> getAll();
     String create(People people) throws MyCarBadRequestException;
-    int update(int id, People people) throws MyCarBadRequestException;
-    int delete(int id) throws MyCarResourceNotFoundException;
+    void update(String id, People people) throws MyCarBadRequestException;
+    void delete(String id) throws MyCarResourceNotFoundException;
     Optional<People> getByGUID(String guid) throws MyCarResourceNotFoundException;
 }
