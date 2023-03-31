@@ -9,10 +9,9 @@ import java.util.List;
 
 public interface PeopleCarService {
     List<PeopleCar> fetchAllPeopleCars();
-    List<Car> fetchAllPersonCars();
-    List<People> fetchAllCarPeople();
+    List<Car> fetchAllPersonCars(String guid);
+    List<People> fetchAllCarPeople(String vin);
     void addPeopleCar(PeopleCar peopleCar) throws MyCarBadRequestException, MyCarResourceNotFoundException;
     void updatePeopleCar(String guid, String vin) throws MyCarResourceNotFoundException;
     void deletePeopleCar(String guid, String vin) throws MyCarResourceNotFoundException;
-    int countCarBelongsToNPeople(String vin);
 }

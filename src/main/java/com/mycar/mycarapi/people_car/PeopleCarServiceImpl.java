@@ -24,13 +24,13 @@ public class PeopleCarServiceImpl implements PeopleCarService {
     }
 
     @Override
-    public List<Car> fetchAllPersonCars() {
-        return null;
+    public List<Car> fetchAllPersonCars(String guid) {
+        return peopleCarDao.getAllPersonCars(guid);
     }
 
     @Override
-    public List<People> fetchAllCarPeople() {
-        return null;
+    public List<People> fetchAllCarPeople(String vin) {
+        return peopleCarDao.getAllCarPeople(vin);
     }
 
     @Override
@@ -46,10 +46,5 @@ public class PeopleCarServiceImpl implements PeopleCarService {
     @Override
     public void deletePeopleCar(String guid, String vin) throws MyCarResourceNotFoundException {
 
-    }
-
-    @Override
-    public int countCarBelongsToNPeople(String vin) {
-        return 0;
     }
 }

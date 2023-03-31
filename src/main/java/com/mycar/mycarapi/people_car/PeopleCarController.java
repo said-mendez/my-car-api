@@ -27,5 +27,4 @@ public class PeopleCarController {
 
         return new ResponseEntity<>(peopleCar, HttpStatus.CREATED);
     }
-
 }

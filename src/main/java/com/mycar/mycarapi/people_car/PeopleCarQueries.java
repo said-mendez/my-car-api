@@ -13,7 +13,7 @@ public class PeopleCarQueries {
             """;
 
     public static final String GET_ALL_PERSON_CARS = """
-            SELECT vin, brand, model, year, color
+            SELECT c.vin, c.brand, c.model, c.year, c.color
             FROM people_car pc,
                  car        c
             WHERE peopleid = ?
@@ -22,7 +22,7 @@ public class PeopleCarQueries {
             """;
 
     public static final String GET_ALL_CAR_PEOPLE = """
-            SELECT vin, brand, model, year, color
+            SELECT p.guid, p.firstname, p.lastname, p.email, p.gender
             FROM people_car pc,
                  people     p
             WHERE carid = ?

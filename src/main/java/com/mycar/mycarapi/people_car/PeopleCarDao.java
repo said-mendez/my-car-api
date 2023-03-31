@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface PeopleCarDao {
     List<PeopleCar> getAllPeopleCars();
-    List<Car> getAllPersonCars();
-    List<People> getAllCarPeople();
+    List<Car> getAllPersonCars(String guid);
+    List<People> getAllCarPeople(String vin);
     void create(PeopleCar peopleCar) throws MyCarBadRequestException;
     void update(String guid, String vin) throws MyCarResourceNotFoundException;
     void delete(String guid, String vin);
