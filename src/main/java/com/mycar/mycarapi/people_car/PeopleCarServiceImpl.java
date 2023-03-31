@@ -34,7 +34,7 @@ public class PeopleCarServiceImpl implements PeopleCarService {
     }
 
     @Override
-    public void addPeopleCar(PeopleCar peopleCar) throws MyCarBadRequestException, MyCarResourceNotFoundException {
+    public void addPeopleCar(PeopleCar peopleCar) throws MyCarBadRequestException {
         peopleCarDao.create(peopleCar);
     }
 

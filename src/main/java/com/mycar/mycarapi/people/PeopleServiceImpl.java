@@ -42,7 +42,7 @@ public class PeopleServiceImpl implements PeopleService {
     @Override
     public People fetchPeopleById(String id) throws MyCarResourceNotFoundException {
         return peopleDao.getByGUID(id)
-                .orElseThrow(() -> new MyCarResourceNotFoundException("People not found!"))
+                .orElseThrow(() -> new MyCarResourceNotFoundException("Person not found!"))
                 ;
     }
 

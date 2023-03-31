@@ -16,18 +16,17 @@ public class CarDataAccessService implements CarDao {
 
     @Override
     public List<Car> getAll() {
-        String sql = CarQueries.GET_ALL;
-
-        return jdbcTemplate.query(sql, new CarRowMapper());
+        return jdbcTemplate.query(
+                CarQueries.GET_ALL,
+                new CarRowMapper()
+        );
     }
 
     @Override
     public String create(Car car) throws MyCarBadRequestException {
-        String sql = CarQueries.INSERT;
-
         try {
             jdbcTemplate.update(
-                    sql,
+                    CarQueries.INSERT,
                     car.vin().toUpperCase(),
                     car.brand().toUpperCase(),
                     car.model().toUpperCase(),
@@ -43,11 +42,9 @@ public class CarDataAccessService implements CarDao {
 
     @Override
     public void update(String id, Car car) throws MyCarBadRequestException {
-        String sql = CarQueries.UPDATE;
-
         try {
             jdbcTemplate.update(
-                    sql,
+                    CarQueries.UPDATE,
                     car.brand(),
                     car.model(),
                     car.year(),
@@ -60,18 +57,18 @@ public class CarDataAccessService implements CarDao {
     }
 
     @Override
-    public void delete(String id) {
-        String sql = CarQueries.DELETE;
-
-        jdbcTemplate.update(sql, id);
+    public void delete(String id) throws MyCarBadRequestException {
+        try {
+            jdbcTemplate.update(CarQueries.DELETE, id);
+        } catch (Exception e) {
+            throw new MyCarBadRequestException("Oops something went wrong!");
+        }
     }
 
     @Override
     public Optional<Car> getByVIN(String vin) throws MyCarResourceNotFoundException {
-        String sql = CarQueries.GET_BY_VIN;
-
         try {
-            return jdbcTemplate.query(sql, new CarRowMapper(), vin)
+            return jdbcTemplate.query(CarQueries.GET_BY_VIN, new CarRowMapper(), vin)
                     .stream()
                     .findFirst()
                     ;
@@ -82,11 +79,9 @@ public class CarDataAccessService implements CarDao {
 
     @Override
     public String createWithVIN(String id, Car car) throws MyCarBadRequestException {
-        String sql = CarQueries.INSERT;
-
         try {
             jdbcTemplate.update(
-                    sql,
+                    CarQueries.INSERT,
                     id.toUpperCase(),
                     car.brand().toUpperCase(),
                     car.model().toUpperCase(),

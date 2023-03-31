@@ -10,7 +10,7 @@ public interface CarDao {
     List<Car> getAll();
     String create(Car car) throws MyCarBadRequestException;
     void update(String id, Car car) throws MyCarBadRequestException;
-    void delete(String id);
+    void delete(String id) throws MyCarBadRequestException;
     Optional<Car> getByVIN(String vin) throws MyCarResourceNotFoundException;
     String createWithVIN(String id, Car car) throws MyCarBadRequestException;
 }

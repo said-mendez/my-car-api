@@ -24,13 +24,12 @@ public class PeopleDataAccessService implements PeopleDao {
 
     @Override
     public String create(People people) throws MyCarBadRequestException {
-        String sql = PeopleQueries.INSERT;
         UUID uui = UUID.randomUUID();
         String uuiString = uui.toString();
 
         try {
             jdbcTemplate.update(
-                    sql,
+                    PeopleQueries.INSERT,
                     uuiString,
                     people.firstName(),
                     people.lastName(),
@@ -47,11 +46,9 @@ public class PeopleDataAccessService implements PeopleDao {
 
     @Override
     public void update(String id, People people) throws MyCarBadRequestException {
-        String sql = PeopleQueries.UPDATE;
-
         try {
             jdbcTemplate.update(
-                    sql,
+                    PeopleQueries.UPDATE,
                     people.firstName(),
                     people.lastName(),
                     people.email().toLowerCase(),
@@ -64,21 +61,21 @@ public class PeopleDataAccessService implements PeopleDao {
     }
 
     @Override
-    public void delete(String id) {
-        String sql = PeopleQueries.DELETE;
-
-        jdbcTemplate.update(
-                sql,
-                id
-        );
+    public void delete(String id) throws MyCarBadRequestException {
+        try {
+            jdbcTemplate.update(
+                    PeopleQueries.DELETE,
+                    id
+            );
+        } catch (Exception e) {
+            throw new MyCarBadRequestException("Oop something went wrong!");
+        }
     }
 
     @Override
     public Optional<People> getByGUID(String guid) throws MyCarResourceNotFoundException {
-        String sql = PeopleQueries.GET_BY_GUID;
-
         try {
-            return jdbcTemplate.query(sql, new PeopleRowMapper(), guid)
+            return jdbcTemplate.query(PeopleQueries.GET_BY_GUID, new PeopleRowMapper(), guid)
                     .stream()
                     .findFirst()
                     ;
@@ -90,11 +87,9 @@ public class PeopleDataAccessService implements PeopleDao {
 
     @Override
     public String createWithGUID(String id, People people) throws MyCarBadRequestException {
-        String sql = PeopleQueries.INSERT;
-
         try {
             jdbcTemplate.update(
-                    sql,
+                    PeopleQueries.INSERT,
                     id,
                     people.firstName(),
                     people.lastName(),
