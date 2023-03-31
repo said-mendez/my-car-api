@@ -8,10 +8,10 @@ import com.mycar.mycarapi.people.People;
 import java.util.List;
 
 public interface PeopleCarService {
-    List<Object> fetchAllCarsPeople();
+    List<PeopleCar> fetchAllPeopleCars();
     List<Car> fetchAllPersonCars();
     List<People> fetchAllCarPeople();
-    PeopleCar addPeopleCar(String guid, String vin) throws MyCarBadRequestException;
+    void addPeopleCar(PeopleCar peopleCar) throws MyCarBadRequestException, MyCarResourceNotFoundException;
     void updatePeopleCar(String guid, String vin) throws MyCarResourceNotFoundException;
     void deletePeopleCar(String guid, String vin) throws MyCarResourceNotFoundException;
     int countCarBelongsToNPeople(String vin);

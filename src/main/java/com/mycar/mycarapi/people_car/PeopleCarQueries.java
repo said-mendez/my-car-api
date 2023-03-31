@@ -3,10 +3,10 @@ package com.mycar.mycarapi.people_car;
 public class PeopleCarQueries {
     public static final String INSERT = """
             INSERT INTO people_car (peopleid, carid)
-            VALUES (peopleid = ?, carid = ?)
+            VALUES (?, ?)
             ;
             """;
-    public static final String GET_ALL_CARS_PEOPLE = """
+    public static final String GET_ALL_PEOPLE_CARS = """
             SELECT peopleid, carid
             FROM people_car
             ;

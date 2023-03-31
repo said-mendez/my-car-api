@@ -8,10 +8,10 @@ import com.mycar.mycarapi.people.People;
 import java.util.List;
 
 public interface PeopleCarDao {
-    List<Object> getAllCarsPeople();
+    List<PeopleCar> getAllPeopleCars();
     List<Car> getAllPersonCars();
     List<People> getAllCarPeople();
-    PeopleCar create(String guid, String vin) throws MyCarBadRequestException;
+    void create(PeopleCar peopleCar) throws MyCarBadRequestException;
     void update(String guid, String vin) throws MyCarResourceNotFoundException;
     void delete(String guid, String vin);
 }
