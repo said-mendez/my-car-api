@@ -2,17 +2,15 @@ package com.mycar.mycarapi.people;
 
 import com.mycar.mycarapi.exceptions.MyCarBadRequestException;
 import com.mycar.mycarapi.exceptions.MyCarResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 
 public class PeopleServiceImpl implements PeopleService {
-    private PeopleDao peopleDao;
+    private final PeopleDao peopleDao;
 
     public PeopleServiceImpl(PeopleDao peopleDao) {
         this.peopleDao = peopleDao;

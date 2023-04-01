@@ -3,10 +3,8 @@ package com.mycar.mycarapi.people_car;
 import com.mycar.mycarapi.car.Car;
 import com.mycar.mycarapi.car.CarRowMapper;
 import com.mycar.mycarapi.exceptions.MyCarBadRequestException;
-import com.mycar.mycarapi.exceptions.MyCarResourceNotFoundException;
 import com.mycar.mycarapi.people.People;
 import com.mycar.mycarapi.people.PeopleRowMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +12,11 @@ import java.util.List;
 
 @Repository
 public class PeopleCarDataAccessService implements PeopleCarDao {
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public PeopleCarDataAccessService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<PeopleCar> getAllPeopleCars() {

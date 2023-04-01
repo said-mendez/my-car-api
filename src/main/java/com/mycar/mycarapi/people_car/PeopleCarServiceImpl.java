@@ -5,8 +5,6 @@ import com.mycar.mycarapi.car.CarDao;
 import com.mycar.mycarapi.exceptions.MyCarBadRequestException;
 import com.mycar.mycarapi.exceptions.MyCarResourceNotFoundException;
 import com.mycar.mycarapi.people.People;
-import com.mycar.mycarapi.people.PeopleDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +13,11 @@ import java.util.List;
 @Service
 @Transactional
 public class PeopleCarServiceImpl implements PeopleCarService {
-    @Autowired
-    PeopleCarDao peopleCarDao;
+    private final PeopleCarDao peopleCarDao;
+
+    public PeopleCarServiceImpl(PeopleCarDao peopleCarDao) {
+        this.peopleCarDao = peopleCarDao;
+    }
 
     @Override
     public List<PeopleCar> fetchAllPeopleCars() {

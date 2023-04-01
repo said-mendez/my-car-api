@@ -2,7 +2,6 @@ package com.mycar.mycarapi.people;
 
 import com.mycar.mycarapi.exceptions.MyCarBadRequestException;
 import com.mycar.mycarapi.exceptions.MyCarResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +11,11 @@ import java.util.UUID;
 
 @Repository
 public class PeopleDataAccessService implements PeopleDao {
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public PeopleDataAccessService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<People> getAll() {

@@ -2,18 +2,19 @@ package com.mycar.mycarapi.car;
 
 import com.mycar.mycarapi.exceptions.MyCarBadRequestException;
 import com.mycar.mycarapi.exceptions.MyCarResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public class CarServiceImpl implements CarService {
-    @Autowired
-    CarDao carDao;
+    private final CarDao carDao;
+
+    public CarServiceImpl(CarDao carDao) {
+        this.carDao = carDao;
+    }
 
     @Override
     public List<Car> fetchAllCars() {

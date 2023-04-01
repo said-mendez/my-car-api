@@ -1,7 +1,5 @@
 package com.mycar.mycarapi.car;
 
-import com.electronwill.nightconfig.core.conversion.Path;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +11,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
-    @Autowired
-    CarService carService;
+    private final CarService carService;
+
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
 
     @GetMapping("")
     public ResponseEntity<List<Car>> getAllCars() {

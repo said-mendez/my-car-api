@@ -4,7 +4,6 @@ import com.mycar.mycarapi.exceptions.MyCarBadRequestException;
 import com.mycar.mycarapi.exceptions.MyCarResourceNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PeopleService {
     List<People> fetchAllPeople();

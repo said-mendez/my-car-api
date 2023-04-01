@@ -1,7 +1,6 @@
 package com.mycar.mycarapi.people_car;
 
 import com.mycar.mycarapi.people.People;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/cars/{vin}/people")
 public class CarPeopleController {
-    @Autowired
-    PeopleCarService peopleCarService;
+    private final PeopleCarService peopleCarService;
+
+    public CarPeopleController(PeopleCarService peopleCarService) {
+        this.peopleCarService = peopleCarService;
+    }
 
     @GetMapping("")
     public ResponseEntity<List<People>> getCarPeople(@PathVariable("vin") String vin) {

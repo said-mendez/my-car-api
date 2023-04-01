@@ -1,6 +1,5 @@
 package com.mycar.mycarapi.people_car;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/people/cars")
 public class PeopleCarController {
-    @Autowired
-    PeopleCarService peopleCarService;
+    private final PeopleCarService peopleCarService;
+
+    public PeopleCarController(PeopleCarService peopleCarService) {
+        this.peopleCarService = peopleCarService;
+    }
 
     @GetMapping("")
     public ResponseEntity<List<PeopleCar>> getAllPeopleCars() {
