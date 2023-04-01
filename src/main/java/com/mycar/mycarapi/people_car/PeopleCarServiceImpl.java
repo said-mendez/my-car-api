@@ -39,8 +39,9 @@ public class PeopleCarServiceImpl implements PeopleCarService {
     }
 
     @Override
-    public void updatePeopleCar(String guid, String vin) throws MyCarResourceNotFoundException {
-
+    public void updatePeopleCar(String guid, String vin, PeopleCar peopleCar) throws MyCarBadRequestException {
+        // TODO: Check if a record exists with the given vin, gui
+        peopleCarDao.update(guid, vin, peopleCar);
     }
 
     @Override

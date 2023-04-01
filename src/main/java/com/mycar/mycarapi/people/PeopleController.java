@@ -14,8 +14,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/people")
 public class PeopleController {
-    @Autowired
-    PeopleService peopleService;
+    private PeopleService peopleService;
+
+    public PeopleController(PeopleService peopleService) {
+        this.peopleService = peopleService;
+    }
 
     @GetMapping("")
     public ResponseEntity<List<People>> getAllPeople() {

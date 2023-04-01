@@ -10,11 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
-public class PeopleServiceImpl implements PeopleService {
-    @Autowired
-    PeopleDao peopleDao;
 
+public class PeopleServiceImpl implements PeopleService {
+    private PeopleDao peopleDao;
+
+    public PeopleServiceImpl(PeopleDao peopleDao) {
+        this.peopleDao = peopleDao;
+    }
+
+    @Transactional(readOnly = true)
     @Override
     public List<People> fetchAllPeople() {
         return peopleDao.getAll();
@@ -27,18 +31,22 @@ public class PeopleServiceImpl implements PeopleService {
         return fetchPeopleById(result);
     }
 
+    @Transactional
     @Override
     public void updatePeople(String id, People people) throws MyCarResourceNotFoundException {
+
         fetchPeopleById(id);
         peopleDao.update(id, people);
     }
 
+    @Transactional
     @Override
     public void deletePeople(String id) throws MyCarResourceNotFoundException {
         fetchPeopleById(id);
         peopleDao.delete(id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public People fetchPeopleById(String id) throws MyCarResourceNotFoundException {
         return peopleDao.getByGUID(id)
@@ -46,6 +54,7 @@ public class PeopleServiceImpl implements PeopleService {
                 ;
     }
 
+    @Transactional
     @Override
     public People addPeopleWithGUID(String id, People people) throws MyCarBadRequestException {
         String result = peopleDao.createWithGUID(id, people);

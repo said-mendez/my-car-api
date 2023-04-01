@@ -67,8 +67,18 @@ public class PeopleCarDataAccessService implements PeopleCarDao {
     }
 
     @Override
-    public void update(String guid, String vin) throws MyCarResourceNotFoundException {
-
+    public void update(String guid, String vin, PeopleCar peopleCar) throws MyCarBadRequestException {
+        try {
+            jdbcTemplate.update(
+                    PeopleCarQueries.UPDATE,
+                    peopleCar.peopleId(),
+                    peopleCar.carId(),
+                    vin,
+                    guid
+            );
+        } catch (Exception e) {
+            throw new MyCarBadRequestException("Oop something went wrong updating you car people relation!");
+        }
     }
 
     @Override
